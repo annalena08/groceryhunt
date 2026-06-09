@@ -120,7 +120,23 @@ export class TouchControls {
   }
 }
 
+/** True when the device should use touch controls (phones, tablets, iPadOS). */
 export function isMobileDevice() {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    || (navigator.maxTouchPoints > 1 && window.innerWidth < 1024);
+  const ua = navigator.userAgent;
+
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+    return true;
+  }
+
+  // iPadOS 13+ can report as Mac when "Request Desktop Website" is on
+  if (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) {
+    return true;
+  }
+
+  // Other touch-first devices (some tablets, touch laptops)
+  if (navigator.maxTouchPoints > 0 && window.matchMedia('(pointer: coarse)').matches) {
+    return true;
+  }
+
+  return false;
 }

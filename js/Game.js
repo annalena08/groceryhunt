@@ -23,6 +23,9 @@ export class Game {
   constructor() {
     this.isRunning = false;
     this.isMobile = isMobileDevice();
+    if (this.isMobile) {
+      document.documentElement.classList.add('touch-device');
+    }
     this.shoppingList = [];
     this.timeRemaining = GAME_DURATION;
     this.lastTime = 0;

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 
 const MOVE_SPEED = 6;
 const MOUSE_SENSITIVITY = 0.002;
-const TOUCH_LOOK_SENSITIVITY = 0.0045;
+const TOUCH_LOOK_SENSITIVITY = 0.008;
 const PLAYER_RADIUS = 0.4;
 const PLAYER_HEIGHT = 1.7;
 

@@ -60,10 +60,8 @@ canvas#game-canvas {
   display: none;
 }
 
-@media (max-width: 768px) {
-  .mobile-hint { display: block; }
-  .hint:not(.mobile-hint) { display: none; }
-}
+html.touch-device .mobile-hint { display: block; }
+html.touch-device .hint:not(.mobile-hint) { display: none; }
 
 .loader {
   width: 48px;
@@ -399,29 +397,29 @@ button:active {
   touch-action: none;
 }
 
-@media (min-width: 769px) {
-  #touch-controls { display: none !important; }
-  #collect-btn { display: none !important; }
+html:not(.touch-device) #touch-controls,
+html:not(.touch-device) #collect-btn {
+  display: none !important;
 }
 
-@media (max-width: 768px) {
-  #shopping-list {
-    top: auto;
-    bottom: 200px;
-    left: 12px;
-    max-width: 160px;
-    font-size: 0.8rem;
-  }
+html.touch-device #shopping-list {
+  top: auto;
+  bottom: 200px;
+  left: 12px;
+  max-width: 160px;
+  font-size: 0.8rem;
+}
 
-  #minimap-container {
-    width: 150px;
-    height: 150px;
-    bottom: auto;
-    top: 60px;
-    right: 12px;
-  }
+html.touch-device #minimap-container {
+  width: 150px;
+  height: 150px;
+  bottom: auto;
+  top: 60px;
+  right: 12px;
+}
 
-  #interact-prompt { display: none !important; }
+html.touch-device #interact-prompt {
+  display: none !important;
 }
 
 /* Catch alert */
