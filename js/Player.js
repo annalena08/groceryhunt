@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 const MOVE_SPEED = 6;
 const MOUSE_SENSITIVITY = 0.002;
+const TOUCH_LOOK_SENSITIVITY = 0.0045;
 const PLAYER_RADIUS = 0.4;
 const PLAYER_HEIGHT = 1.7;
 
@@ -18,7 +19,6 @@ export class Player {
 
     this.keys = {};
     this.moveInput = { x: 0, z: 0 };
-    this.lookInput = { x: 0, y: 0 };
     this.isMoving = false;
     this.distanceMoved = 0;
 
@@ -53,9 +53,11 @@ export class Player {
     this.moveInput.z = z;
   }
 
-  setLookInput(x, y) {
-    this.lookInput.x = x;
-    this.lookInput.y = y;
+  applyTouchLook(dx, dy) {
+    this.yaw -= dx * TOUCH_LOOK_SENSITIVITY;
+    this.pitch -= dy * TOUCH_LOOK_SENSITIVITY;
+    this.pitch = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, this.pitch));
+    this._updateCamera();
   }
 
   update(dt) {
@@ -76,15 +78,6 @@ export class Player {
     if (len > 0) {
       mx /= len;
       mz /= len;
-    }
-
-    // Touch look
-    if (this.lookInput.x !== 0 || this.lookInput.y !== 0) {
-      this.yaw -= this.lookInput.x * MOUSE_SENSITIVITY * 60 * dt;
-      this.pitch -= this.lookInput.y * MOUSE_SENSITIVITY * 60 * dt;
-      this.pitch = Math.max(-Math.PI / 2 + 0.05, Math.min(Math.PI / 2 - 0.05, this.pitch));
-      this.lookInput.x = 0;
-      this.lookInput.y = 0;
     }
 
     // Move relative to yaw

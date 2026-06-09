@@ -92,16 +92,40 @@ export class Game {
       dialogueBtn: document.getElementById('dialogue-btn')
     };
 
-    document.getElementById('start-btn').addEventListener('click', () => {
+    this._bindTapButton(document.getElementById('start-btn'), () => {
       this.audio.unlock();
       this.start();
     });
-    document.getElementById('restart-btn').addEventListener('click', () => {
+    this._bindTapButton(document.getElementById('restart-btn'), () => {
       this.audio.unlock();
       this.restart();
     });
-    this.ui.collectBtn?.addEventListener('click', () => this._tryInteract());
-    this.ui.dialogueBtn?.addEventListener('click', () => this._dismissDialogue());
+    this._bindTapButton(this.ui.collectBtn, () => this._tryInteract());
+    this._bindTapButton(this.ui.dialogueBtn, () => this._dismissDialogue());
+  }
+
+  _bindTapButton(el, handler) {
+    if (!el) return;
+
+    let touchTriggered = false;
+
+    el.addEventListener('pointerdown', e => {
+      if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+        e.preventDefault();
+        e.stopPropagation();
+        touchTriggered = true;
+        handler();
+      }
+    });
+
+    el.addEventListener('click', e => {
+      if (touchTriggered) {
+        e.preventDefault();
+        touchTriggered = false;
+        return;
+      }
+      handler();
+    });
   }
 
   _setupPointerLock() {

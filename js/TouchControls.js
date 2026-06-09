@@ -22,7 +22,6 @@ export class TouchControls {
   show() {
     if (this.isMobile && this.touchControlsEl) {
       this.touchControlsEl.classList.remove('hidden');
-      document.getElementById('collect-btn')?.classList.remove('hidden');
     }
   }
 
@@ -90,19 +89,23 @@ export class TouchControls {
 
   _onLookStart(e) {
     e.preventDefault();
-    const touch = e.changedTouches[0];
-    if (this.moveTouchId === touch.identifier) return;
-    this.lookTouchId = touch.identifier;
-    this.lastLook = { x: touch.clientX, y: touch.clientY };
+    for (const touch of e.changedTouches) {
+      if (touch.identifier === this.moveTouchId) continue;
+      this.lookTouchId = touch.identifier;
+      this.lastLook = { x: touch.clientX, y: touch.clientY };
+      break;
+    }
   }
 
   _onLookMove(e) {
     e.preventDefault();
-    for (const touch of e.changedTouches) {
+    for (const touch of e.touches) {
       if (touch.identifier === this.lookTouchId) {
         const dx = touch.clientX - this.lastLook.x;
         const dy = touch.clientY - this.lastLook.y;
-        this.player.setLookInput(dx, dy);
+        if (dx !== 0 || dy !== 0) {
+          this.player.applyTouchLook(dx, dy);
+        }
         this.lastLook = { x: touch.clientX, y: touch.clientY };
       }
     }

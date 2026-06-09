@@ -100,6 +100,13 @@ button:active {
   transform: scale(0.97);
 }
 
+#start-btn,
+#restart-btn,
+#dialogue-btn {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* HUD */
 #game-ui {
   position: fixed;
@@ -344,9 +351,11 @@ button:active {
   left: 50%;
   transform: translateX(-50%);
   pointer-events: auto;
+  z-index: 30;
   margin-top: 0;
   padding: 0.7rem 2rem;
   font-size: 1rem;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Touch controls */
@@ -385,8 +394,9 @@ button:active {
   top: 0;
   right: 0;
   width: 50%;
-  height: 100%;
+  bottom: 110px;
   pointer-events: auto;
+  touch-action: none;
 }
 
 @media (min-width: 769px) {
