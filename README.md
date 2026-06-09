@@ -103,6 +103,20 @@ js/
   MallConfig.js         Difficulty & tuning constants
 ```
 
+## AI Tools Used
+
+This school project was built through **human-led design and AI-assisted implementation**. The author defined the game concept, mechanics, and priorities; an AI coding assistant helped turn those into working code, docs, and iterations.
+
+| | |
+|---|---|
+| **Tool** | [Cursor](https://cursor.com) — AI-powered IDE |
+| **Modes used** | **Agent** (feature implementation, bug fixes), **Ask** (code exploration, review) |
+| **Models** | Cursor’s built-in models, primarily **Claude** (Sonnet) and **Composer** for multi-file edits; model selection varied by task |
+| **What AI helped with** | Initial Three.js scaffold, maze layout, mobile touch controls, Karen/cashier systems, power-ups, minimap, UI polish, README, and debugging from playtest feedback |
+| **What the author did** | Game idea and rules, feature requests (difficulties, Pat dialogue, easter eggs, power-ups), playtesting on Android/iPad, balance tweaks, GitHub setup, and final review of all changes |
+
+AI was used as a **pair-programming assistant**, not as an autonomous author. All gameplay decisions and acceptance of features were driven by the developer.
+
 ## Repository
 
 [https://github.com/annalena08/groceryhunt](https://github.com/annalena08/groceryhunt)
