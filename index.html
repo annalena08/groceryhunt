@@ -20,15 +20,55 @@
     <p class="hint">Desktop: WASD to move, mouse to look, E or click to collect</p>
     <p class="hint">Face angry customers and press E to yell them away (has a cooldown)</p>
     <p class="hint mobile-hint">Mobile: left stick to move, drag right side to look, tap Collect</p>
+    <p class="start-subtitle">5 minutes on the clock — pick your chaos level</p>
+
+    <div id="powerup-legend">
+      <h3>Floor Power-Ups</h3>
+      <p class="legend-hint">Walk over them to collect — no button needed</p>
+      <ul>
+        <li><span class="legend-icon">📢</span> Free Yell — unlimited shouts for 30s</li>
+        <li><span class="legend-icon">❄️</span> Karen Freeze — enemies stop for 10s</li>
+        <li><span class="legend-icon">🧭</span> Item Radar — compass to next item for 12s</li>
+        <li><span class="legend-icon">⏱️</span> +10 Seconds — bonus time on the clock</li>
+      </ul>
+    </div>
+
+    <div id="difficulty-picker">
+      <div class="difficulty-options">
+        <button type="button" class="difficulty-btn" data-difficulty="easy">
+          <span class="difficulty-name">Easy</span>
+          <span class="difficulty-detail">3 items · 3 Karens</span>
+        </button>
+        <button type="button" class="difficulty-btn" data-difficulty="normal">
+          <span class="difficulty-name">Normal</span>
+          <span class="difficulty-detail">5 items · 3 Karens</span>
+        </button>
+        <button type="button" class="difficulty-btn" data-difficulty="hard">
+          <span class="difficulty-name">Hard</span>
+          <span class="difficulty-detail">7 items · 3 Karens</span>
+        </button>
+        <button type="button" class="difficulty-btn" data-difficulty="blackFriday">
+          <span class="difficulty-name">Black Friday</span>
+          <span class="difficulty-detail">10 items · 5 Karens</span>
+        </button>
+      </div>
+    </div>
+
     <button id="start-btn">Start Shopping</button>
   </div>
 
   <div id="game-ui" class="hidden">
     <div id="hud-top">
       <div id="timer">05:00</div>
-      <div id="progress">0 / 3 found</div>
+      <div id="progress">0 / 5 found</div>
       <div id="scare-cooldown" class="hidden"></div>
     </div>
+
+    <div id="powerup-panel" class="hidden">
+      <h3>Power-Ups</h3>
+      <div id="powerup-status"></div>
+    </div>
+    <div id="powerup-toast" class="hidden"></div>
 
     <div id="shopping-list">
       <h3>Shopping List</h3>
@@ -37,6 +77,26 @@
 
     <div id="minimap-container">
       <canvas id="minimap"></canvas>
+    </div>
+
+    <div id="checkout-pointer" class="hidden">
+      <div id="checkout-compass"><span id="checkout-arrow">➤</span></div>
+      <div id="checkout-info">
+        <span id="checkout-label">Checkout at Pat's!</span>
+        <span id="checkout-hint">Return to the entrance</span>
+        <span id="checkout-distance"></span>
+      </div>
+    </div>
+
+    <div id="checkout-toast" class="hidden">All items found — head to checkout!</div>
+
+    <div id="item-radar-hud" class="hidden">
+      <div id="radar-compass"><span id="radar-arrow">➤</span></div>
+      <div id="radar-info">
+        <span id="radar-item-name"></span>
+        <span id="radar-aisle-hint"></span>
+        <span id="radar-distance"></span>
+      </div>
     </div>
 
     <div id="crosshair"></div>
@@ -74,7 +134,8 @@
   <div id="end-screen" class="hidden">
     <h1 id="end-title">Time's Up!</h1>
     <p id="end-message"></p>
-    <button id="restart-btn">Play Again</button>
+    <ul id="end-stats"></ul>
+    <button id="menu-btn">Main Menu</button>
   </div>
 
   <script type="importmap">

@@ -272,6 +272,14 @@ export class AngryCustomer {
     this.mesh.position.y = bob;
   }
 
+  freezePose(dt) {
+    this.walkPhase += dt * 2;
+    this.mesh.position.y = Math.sin(this.walkPhase) * 0.015;
+    this.mesh.traverse(c => {
+      if (c.userData.isSteam) c.visible = false;
+    });
+  }
+
   teleportFarFrom(playerPos, minDist = 16) {
     const pos = this.resolveSafePosition
       ? this.resolveSafePosition(playerPos, minDist)

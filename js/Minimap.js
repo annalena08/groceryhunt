@@ -182,6 +182,41 @@ export class Minimap {
     });
   }
 
+  _drawRadarGuide(ctx, playerX, playerZ, radarTarget) {
+    if (!radarTarget) return;
+
+    const isCheckout = radarTarget.mode === 'checkout';
+    const from = this._worldToCanvas(playerX, playerZ);
+    const to = this._worldToCanvas(radarTarget.x, radarTarget.z);
+    const pulse = 0.6 + Math.sin(this.pulse * 2) * 0.4;
+    const lineColor = isCheckout
+      ? `rgba(46, 204, 113, ${pulse})`
+      : `rgba(255, 238, 68, ${pulse})`;
+    const markerColor = isCheckout ? '#2ecc71' : '#ffee44';
+
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = lineColor;
+    ctx.lineWidth = isCheckout ? 2.5 : 2;
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.beginPath();
+    ctx.arc(to.x, to.y, 7 + Math.sin(this.pulse * 3) * 2, 0, Math.PI * 2);
+    ctx.strokeStyle = markerColor;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(to.x, to.y, 4, 0, Math.PI * 2);
+    ctx.fillStyle = markerColor;
+    ctx.fill();
+    ctx.restore();
+  }
+
   _drawPlayer(ctx, playerX, playerZ, playerYaw) {
     const p = this._worldToCanvas(playerX, playerZ);
 
@@ -236,7 +271,7 @@ export class Minimap {
     ctx.fillText(neededCount > 0 ? `${neededCount} aisle${neededCount > 1 ? 's' : ''} left` : 'Go checkout!', w - 8, y);
   }
 
-  update(playerX, playerZ, playerYaw, collectibles, enemies = [], cashierPos = null, shoppingList = []) {
+  update(playerX, playerZ, playerYaw, collectibles, enemies = [], cashierPos = null, shoppingList = [], radarTarget = null) {
     this.pulse += 0.08;
 
     const ctx = this.ctx;
@@ -256,6 +291,7 @@ export class Minimap {
     this._drawCategoryMarkers(ctx, neededAisles);
     this._drawEntranceAndCheckout(ctx, cashierPos);
     this._drawCollectibles(ctx, collectibles);
+    this._drawRadarGuide(ctx, playerX, playerZ, radarTarget);
     this._drawEnemies(ctx, enemies);
     this._drawPlayer(ctx, playerX, playerZ, playerYaw);
     this._drawLegend(ctx, neededAisles.size);

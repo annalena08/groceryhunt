@@ -1,5 +1,3 @@
-import { SHOPPING_LIST_SIZE } from './MallConfig.js';
-
 export const CATEGORIES = {
   dairy: {
     name: 'Dairy products',
@@ -104,12 +102,12 @@ export const CATEGORIES = {
 };
 
 /**
- * Pick one random item from each of SHOPPING_LIST_SIZE categories.
+ * Pick one random item from each of `size` categories.
  */
-export function generateShoppingList() {
+export function generateShoppingList(size) {
   const categoryKeys = Object.keys(CATEGORIES);
   const shuffledKeys = [...categoryKeys].sort(() => Math.random() - 0.5);
-  const selectedKeys = shuffledKeys.slice(0, SHOPPING_LIST_SIZE);
+  const selectedKeys = shuffledKeys.slice(0, size);
 
   const list = selectedKeys.map(key => {
     const cat = CATEGORIES[key];

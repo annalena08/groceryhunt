@@ -12,10 +12,15 @@ export const PLAYER_BOUNDS = {
 };
 
 export const AISLE_COUNT = 10;
-/** Items required to checkout. Use 3 for debug, 10 for production. */
-export const SHOPPING_LIST_SIZE = 3;
-/** Angry customers in the maze. Use 1 for debug, 4 for production. */
-export const ENEMY_COUNT = 4;
+
+export const DIFFICULTIES = {
+  easy: { label: 'Easy', items: 3, enemies: 3 },
+  normal: { label: 'Normal', items: 5, enemies: 3 },
+  hard: { label: 'Hard', items: 7, enemies: 3 },
+  blackFriday: { label: 'Black Friday', items: 10, enemies: 5 }
+};
+
+export const DEFAULT_DIFFICULTY = 'normal';
 /** Yell scare — flee duration, player cooldown, and targeting range. */
 export const SCARE_DURATION = 3;
 export const SCARE_COOLDOWN = 12;

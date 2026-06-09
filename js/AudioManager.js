@@ -5,7 +5,7 @@ export class AudioManager {
     this.unlocked = false;
     this.stepAccumulator = 0;
     this.leftFoot = true;
-    this.stepSpacing = 0.38;
+    this.stepSpacing = 4.5;
   }
 
   _ensureContext() {

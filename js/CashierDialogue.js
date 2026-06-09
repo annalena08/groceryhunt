@@ -1,5 +1,3 @@
-import { SHOPPING_LIST_SIZE } from './MallConfig.js';
-
 const REJECT_MESSAGES = [
   "Are you kidding me?! You haven't finished shopping! Get back in those aisles!",
   "I don't care how 'close' you are — no items, no receipt! Scram!",
@@ -45,6 +43,18 @@ export function getAlphabeticalEasterEggMessage() {
   return ALPHABETICAL_EASTER_EGG[Math.floor(Math.random() * ALPHABETICAL_EASTER_EGG.length)];
 }
 
-export function getCheckoutSuccessMessage() {
-  return `Perfect! All ${SHOPPING_LIST_SIZE} items accounted for. Have a great day!`;
+export function getCheckoutSuccessMessage(totalCount) {
+  return `Perfect! All ${totalCount} items accounted for. Have a great day!`;
+}
+
+const TIME_WARNING_MESSAGES = [
+  "TEN SECONDS?! I'm literally rolling down the shutters! MOVE IT!",
+  "The store closes when the clock says so — not when YOU'RE ready! HURRY!",
+  "I've got one foot on the 'CLOSED' sign. You have seconds, not minutes!",
+  "Checkout lane shuts in ten! This is not a suggestion — it's a countdown!",
+  "Pat's patience expires in ten seconds. Your shopping list does NOT!"
+];
+
+export function getTimeWarningMessage() {
+  return TIME_WARNING_MESSAGES[Math.floor(Math.random() * TIME_WARNING_MESSAGES.length)];
 }

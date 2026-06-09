@@ -2,7 +2,6 @@ import * as THREE from "three";
 import { AngryCustomer } from "./AngryCustomer.js";
 import {
   PLAYER_BOUNDS,
-  ENEMY_COUNT,
   SCARE_DURATION,
   SCARE_COOLDOWN,
   SCARE_DISTANCE,
@@ -30,10 +29,10 @@ export class EnemyManager {
     this.pathCells = getPathCells();
   }
 
-  spawnAll(spawnPos) {
+  spawnAll(spawnPos, enemyCount) {
     this.clear();
     this.scareCooldown = 0;
-    for (let i = 0; i < ENEMY_COUNT; i++) {
+    for (let i = 0; i < enemyCount; i++) {
       const pos = this._findSafePosition(spawnPos, 12 + i * 2);
       const enemy = new AngryCustomer(
         this.scene,
@@ -99,7 +98,7 @@ export class EnemyManager {
     return new THREE.Vector3(entrance.x, 0, entrance.z - 2);
   }
 
-  update(dt, playerPos) {
+  update(dt, playerPos, frozen = false) {
     if (this.playerCatchCooldown > 0) {
       this.playerCatchCooldown -= dt;
     }
@@ -116,8 +115,14 @@ export class EnemyManager {
         enemy.mesh.position.copy(safe);
       }
 
-      enemy.update(dt, playerPos);
+      if (frozen) {
+        enemy.freezePose(dt);
+      } else {
+        enemy.update(dt, playerPos);
+      }
+
       if (
+        !frozen &&
         !caught &&
         this.playerCatchCooldown <= 0 &&
         enemy.isCaught(playerPos)
@@ -131,8 +136,8 @@ export class EnemyManager {
     return caught;
   }
 
-  getScareTarget(playerPos, playerYaw) {
-    if (this.scareCooldown > 0) return null;
+  getScareTarget(playerPos, playerYaw, unlimitedYell = false) {
+    if (!unlimitedYell && this.scareCooldown > 0) return null;
 
     const forwardX = -Math.sin(playerYaw);
     const forwardZ = -Math.cos(playerYaw);
@@ -164,18 +169,20 @@ export class EnemyManager {
     return Math.max(0, this.scareCooldown);
   }
 
-  tryScare(playerPos, playerYaw) {
-    if (this.scareCooldown > 0) {
+  tryScare(playerPos, playerYaw, unlimitedYell = false) {
+    if (!unlimitedYell && this.scareCooldown > 0) {
       return { ok: false, reason: 'cooldown' };
     }
 
-    const enemy = this.getScareTarget(playerPos, playerYaw);
+    const enemy = this.getScareTarget(playerPos, playerYaw, unlimitedYell);
     if (!enemy) {
       return { ok: false, reason: 'none' };
     }
 
     enemy.scare(SCARE_DURATION);
-    this.scareCooldown = SCARE_COOLDOWN;
+    if (!unlimitedYell) {
+      this.scareCooldown = SCARE_COOLDOWN;
+    }
 
     return { ok: true, line: getScareLine(), enemy };
   }
