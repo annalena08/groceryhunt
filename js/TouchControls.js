@@ -20,15 +20,14 @@ export class TouchControls {
   }
 
   show() {
-    if (this.isMobile && this.touchControlsEl) {
-      this.touchControlsEl.classList.remove('hidden');
-    }
+    if (!this.isMobile) return;
+    this.touchControlsEl?.classList.remove('hidden');
+    document.getElementById('collect-btn')?.classList.remove('hidden');
   }
 
   hide() {
-    if (this.touchControlsEl) {
-      this.touchControlsEl.classList.add('hidden');
-    }
+    this.touchControlsEl?.classList.add('hidden');
+    document.getElementById('collect-btn')?.classList.add('hidden');
   }
 
   _bindEvents() {

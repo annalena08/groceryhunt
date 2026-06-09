@@ -762,16 +762,44 @@ html.touch-device #powerup-panel h3 {
 }
 
 #collect-btn {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
   pointer-events: auto;
-  z-index: 30;
+  z-index: 35;
   margin-top: 0;
-  padding: 0.7rem 2rem;
-  font-size: 1rem;
   -webkit-tap-highlight-color: transparent;
+}
+
+html.touch-device #collect-btn {
+  position: fixed;
+  bottom: max(36px, env(safe-area-inset-bottom, 36px));
+  right: max(28px, env(safe-area-inset-right, 28px));
+  left: auto;
+  transform: none;
+  width: 76px;
+  height: 76px;
+  padding: 0.4rem;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: pre-line;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #555;
+  color: #aaa;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  transition: background 0.15s, color 0.15s, transform 0.1s;
+}
+
+html.touch-device #collect-btn.action-ready {
+  background: #e94560;
+  color: #fff;
+}
+
+html.touch-device #collect-btn.action-ready:active {
+  transform: scale(0.94);
+  background: #ff6b6b;
 }
 
 /* Touch controls */
@@ -810,9 +838,15 @@ html.touch-device #powerup-panel h3 {
   top: 0;
   right: 0;
   width: 50%;
-  bottom: 110px;
+  bottom: 120px;
   pointer-events: auto;
   touch-action: none;
+}
+
+html.touch-device #look-zone {
+  right: 100px;
+  width: auto;
+  left: 50%;
 }
 
 html:not(.touch-device) #touch-controls,

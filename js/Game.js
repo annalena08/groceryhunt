@@ -439,15 +439,16 @@ export class Game {
         : 'Press E or tap Collect';
 
     if (this.isMobile) {
-      this.ui.collectBtn.classList.toggle('hidden', !showPrompt);
-      if (showPrompt) {
-        const labels = {
-          cashier: 'Check Out',
-          scare: 'Yell!',
-          collectible: 'Collect'
-        };
-        this.ui.collectBtn.textContent = labels[interactTarget] ?? 'Collect';
-      }
+      this.ui.collectBtn.classList.remove('hidden');
+      this.ui.collectBtn.classList.toggle('action-ready', showPrompt);
+      const labels = {
+        cashier: 'Check\nOut',
+        scare: 'Yell!',
+        collectible: 'Collect'
+      };
+      this.ui.collectBtn.textContent = showPrompt
+        ? (labels[interactTarget] ?? 'Collect')
+        : '···';
     } else {
       this.ui.interactPrompt.classList.toggle('hidden', !showPrompt);
       if (showPrompt) {
