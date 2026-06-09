@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Grocery Hunt — Mall Explorer</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="loading-screen">
+    <h1>Grocery Hunt</h1>
+    <p>Loading mall...</p>
+    <div class="loader"></div>
+  </div>
+
+  <div id="start-screen" class="hidden">
+    <h1>Grocery Hunt</h1>
+    <p>Find all items from your shopping list before time runs out!</p>
+    <p class="hint">Return to the checkout counter at the entrance when you're done!</p>
+    <p class="hint">Desktop: WASD to move, mouse to look, E or click to collect</p>
+    <p class="hint">Face angry customers and press E to yell them away (has a cooldown)</p>
+    <p class="hint mobile-hint">Mobile: left stick to move, drag right side to look, tap Collect</p>
+    <button id="start-btn">Start Shopping</button>
+  </div>
+
+  <div id="game-ui" class="hidden">
+    <div id="hud-top">
+      <div id="timer">05:00</div>
+      <div id="progress">0 / 3 found</div>
+      <div id="scare-cooldown" class="hidden"></div>
+    </div>
+
+    <div id="shopping-list">
+      <h3>Shopping List</h3>
+      <ul id="list-items"></ul>
+    </div>
+
+    <div id="minimap-container">
+      <canvas id="minimap"></canvas>
+    </div>
+
+    <div id="crosshair"></div>
+    <div id="interact-prompt" class="hidden">Press E or tap Collect</div>
+    <button id="collect-btn" class="hidden">Collect</button>
+
+    <div id="catch-flash" class="hidden"></div>
+    <div id="catch-alert" class="hidden">
+      <span class="catch-icon">😤</span>
+      <span class="catch-text">CAUGHT! −10 seconds</span>
+    </div>
+
+    <div id="scare-alert" class="hidden">
+      <span class="scare-icon">🗣️</span>
+      <span class="scare-text"></span>
+    </div>
+
+    <div id="cashier-dialogue" class="hidden">
+      <div id="dialogue-box">
+        <div id="dialogue-speaker">Pat (Cashier)</div>
+        <p id="dialogue-text"></p>
+        <button id="dialogue-btn">Done</button>
+      </div>
+    </div>
+
+    <!-- Mobile touch controls -->
+    <div id="touch-controls" class="hidden">
+      <div id="move-stick">
+        <div id="move-knob"></div>
+      </div>
+      <div id="look-zone"></div>
+    </div>
+  </div>
+
+  <div id="end-screen" class="hidden">
+    <h1 id="end-title">Time's Up!</h1>
+    <p id="end-message"></p>
+    <button id="restart-btn">Play Again</button>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
